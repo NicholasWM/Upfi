@@ -19,7 +19,11 @@ export default function Home(): JSX.Element {
   } = useInfiniteQuery(
     'images',
     // TODO AXIOS REQUEST WITH PARAM
-    async ({pageParam=0})=> (await api.get(`/images?after=${pageParam}`)).data,
+    async ({pageParam=0})=> (await api.get('api/images',{
+      params:{
+        after:pageParam
+      }
+    })).data,
     // TODO GET AND RETURN NEXT PAGE PARAM
     {getNextPageParam: lastPage => lastPage.after || null}
   );
